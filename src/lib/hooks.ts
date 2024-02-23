@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 
-import { JobItem } from "./types";
+import { JobItem, JobItemExpanded } from "./types";
 import { BASE_API_URL } from "./constants";
 import { useQuery } from "@tanstack/react-query";
 
+type JobItemApiResponse = {
+  public: boolean;
+  jobItem: JobItemExpanded;
+};
+
+const fetchJobItem = async (id: number | null): Promise<JobItemApiResponse> => {
+  const response = await fetch(`${BASE_API_URL}/${id}`);
+  const data = await response.json();
+  return data;
+};
+
 export function useJobItem(id: number | null) {
-  const { data, isLoading } = useQuery(
+  const { data, isInitialLoading } = useQuery(
     ["job-item", id],
-    async () => {
-      const response = await fetch(`${BASE_API_URL}/${id}`);
-      const data = await response.json();
-      return data;
-    },
+    () => (id ? fetchJobItem(id) : null),
     {
       staleTime: 1000 * 60 * 60,
       refetchOnWindowFocus: false,
@@ -22,6 +29,7 @@ export function useJobItem(id: number | null) {
   );
 
   const jobItem = data?.jobItem;
+  const isLoading = isInitialLoading;
 
   return { jobItem, isLoading } as const;
 }
