@@ -1,19 +1,23 @@
-import { JobItemExpanded } from "../lib/types";
+import { useActiveId, useJobItem } from "../lib/hooks";
 import BookmarkIcon from "./BookmarkIcon";
+import Spinner from "./Spinner";
 
-type JobItemContentProps = {
-  jobItem: JobItemExpanded | null;
-};
+export default function JobItemContent() {
+  const activeId = useActiveId();
+  const [jobItem, isLoading] = useJobItem(activeId);
 
-export default function JobItemContent({ jobItem }: JobItemContentProps) {
+  if (isLoading) {
+    return <LoadingJobContent />;
+  }
+
   if (!jobItem) {
     return <EmptyJobContent />;
   }
-  console.log(jobItem);
+
   return (
     <section className="job-details">
       <div>
-        <img src={jobItem.coverImageURL} alt="#" />
+        <img src={jobItem.coverImgURL} alt="#" />
 
         <a className="apply-btn" href={jobItem.companyURL} target="_blank">
           Apply
@@ -87,6 +91,16 @@ export default function JobItemContent({ jobItem }: JobItemContentProps) {
             it!
           </p>
         </footer>
+      </div>
+    </section>
+  );
+}
+
+function LoadingJobContent() {
+  return (
+    <section className="job-details">
+      <div>
+        <Spinner />
       </div>
     </section>
   );

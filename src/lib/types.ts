@@ -15,6 +15,6 @@ export type JobItemExpanded = JobItem & {
   duration: string;
   location: string;
   salary: string;
-  coverImageURL: string;
+  coverImgURL: string;
   companyURL: string;
 };
