@@ -11,8 +11,11 @@ export function JobList({ jobItems, isLoading }: JobListProps) {
   return (
     <ul className="job-list">
       {isLoading && <Spinner />}
+
       {!isLoading &&
-        jobItems.map((jobItem) => <JobListItem jobItem={jobItem} />)}
+        jobItems.map((jobItem) => (
+          <JobListItem key={jobItem.id} jobItem={jobItem} />
+        ))}
     </ul>
   );
 }

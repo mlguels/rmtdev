@@ -18,7 +18,7 @@ import { useJobItems } from "../lib/hooks";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const { isLoading, jobItems } = useJobItems(searchText);
+  const [jobItems, isLoading] = useJobItems(searchText);
 
   return (
     <>
@@ -44,6 +44,7 @@ function App() {
 
           <PaginationControls />
         </Sidebar>
+
         <JobItemContent />
       </Container>
 
