@@ -36,10 +36,10 @@ export function useJobItem(id: number | null) {
     }
   );
 
-  const jobItem = data?.jobItem;
-  const isLoading = isInitialLoading;
-
-  return { jobItem, isLoading } as const;
+  return {
+    jobItem: data?.jobItem,
+    isLoading: isInitialLoading,
+  } as const;
 }
 
 export function useActiveId() {
@@ -97,10 +97,7 @@ export function useJobItems(searchText: string) {
     }
   );
 
-  const jobItems = data?.jobItems;
-  const isLoading = isInitialLoading;
-
-  return { jobItems, isLoading };
+  return { jobItems: data?.jobItems, isLoading: isInitialLoading } as const;
 }
 
 export function useDebounce<T>(value: T, delay = 500): T {
