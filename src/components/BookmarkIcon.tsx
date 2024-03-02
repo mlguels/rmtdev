@@ -8,7 +8,7 @@ interface BookmarkIconProps {
 }
 
 export default function BookmarkIcon({ id }: BookmarkIconProps) {
-  const { bookmarkIds, handleToggleBookmark } = useContext(BookmarksContext);
+  const { bookmarkedIds, handleToggleBookmark } = useContext(BookmarksContext);
 
   return (
     <button
@@ -20,7 +20,7 @@ export default function BookmarkIcon({ id }: BookmarkIconProps) {
       className="bookmark-btn"
     >
       <BookmarkFilledIcon
-        className={`${bookmarkIds.includes(id) ? "filled" : ""}`}
+        className={`${bookmarkedIds.includes(id) ? "filled" : ""}`}
       />
     </button>
   );
