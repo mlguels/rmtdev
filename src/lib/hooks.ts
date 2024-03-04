@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
 import { JobItem, JobItemExpanded } from "./types";
 import { BASE_API_URL } from "./constants";
-import { useQueries, useQuery } from "@tanstack/react-query";
 import { handleError } from "./utils";
 import { BookmarksContext } from "../contexts/BookmarksContextProvider";
 
